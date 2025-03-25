@@ -1,0 +1,28 @@
+body{
+    background-color: black;
+}
+.first-navbar{
+    background-color: black;
+}
+
+.card-header{
+    display: flex;
+    justify-content: space-between;
+}
+.star-card{
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.horizontal-scroll-container{
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    scrollbar-color: black;
+}
+
+.tittle{
+    color: red;
+    font-style: italic;
+}
