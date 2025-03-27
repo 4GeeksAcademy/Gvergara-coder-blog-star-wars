@@ -11,7 +11,7 @@ export const CardPlanets = (props) => {
                 </div>
                 <div className="card-body">
                     <button type="button" className="btn btn-outline-success">Learn more!</button>
-                    <button type="button" className="btn btn-outline-warning"><i class="fa-regular fa-heart"></i></button>
+                    <button type="button" className="btn btn-outline-warning hearth"><i className="fa-regular fa-heart"></i></button>
                 </div>
             </div>
         </div>
