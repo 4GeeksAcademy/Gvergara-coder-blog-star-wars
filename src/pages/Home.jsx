@@ -1,9 +1,55 @@
+import { useEffect } from "react";
 import rigoImageUrl from "../assets/img/rigo-baby.jpg";
 import useGlobalReducer from "../hooks/useGlobalReducer.jsx";
+import CardCharacter from "./CardCharacter.jsx";
+import { CardPlanets } from "./CardPlanets.jsx";
+
 
 export const Home = () => {
-
+	const apiUrl ="https://www.swapi.tech/api"
 	const { store, dispatch } = useGlobalReducer()
+	
+	useEffect(() => {
+		fetch(`${apiUrl}/people`)
+		.then((response) =>{
+			if(!response.ok){
+				throw new Error("Error al obtener los personajes")	
+			}
+			return response.json()
+		})
+		.then((data) =>{
+			console.log(data)
+
+			const action = {type: "setCharacters", payload: data.results}
+			dispatch(action)
+			
+		})
+		.catch((error) =>{
+			console.log(error)
+			
+		})
+	}, [])
+
+	useEffect(() => {		
+		fetch(`${apiUrl}/planets`)
+		.then((response)=>{
+			if(!response.ok){
+				throw new Error("Error al obtener los planetas")
+			}
+			return response.json()
+		})
+		.then((data)=>{
+			console.log(data)
+			const action = {type: "setPlanets", payload: data.results}
+			dispatch(action)
+			
+		})
+		.catch((error)=>{
+			console.log(error);
+			
+		})
+
+	}, [])
 
 	return (
 		<div className="text-center mt-5">
@@ -13,91 +59,12 @@ export const Home = () => {
 					Characters
 				</h1>
 				<div className="card-header container">
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on .</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card tit.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and make up.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and m.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title an.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
+					{store.characters.map((character, index) => {
+						return (
+							<CardCharacter ch={character} key={index} />
+						);
+							
+					})}
 				</div>
 			</div>
 
@@ -106,91 +73,11 @@ export const Home = () => {
 					Planets
 				</h1>
 				<div className="card-header container">
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on .</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card tit.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and make up.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title and m.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
-
-					<div className="card star-card" style={{ width: "18rem" }}>
-						<img src="..." className="card-img-top" alt="..." />
-						<div className="card-body">
-							<h5 className="card-title">Card title</h5>
-							<p className="card-text">Some quick example text to build on the card title an.</p>
-						</div>
-						<ul className="list-group list-group-flush">
-							<li className="list-group-item">An item</li>
-							<li className="list-group-item">A second item</li>
-							<li className="list-group-item">A third item</li>
-						</ul>
-						<div className="card-body">
-							<button type="button" className="btn btn-outline-success">Learn more!</button>
-							<button type="button" className="btn btn-outline-warning"><i class="fa-solid fa-heart"></i></button>
-						</div>
-					</div>
+					{store.planets.map((planet , index) =>{
+						return(
+							<CardPlanets pl={planet} key={index}/>
+						)
+					})}
 				</div>
 			</div>
 		</div>

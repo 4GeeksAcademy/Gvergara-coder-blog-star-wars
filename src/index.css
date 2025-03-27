@@ -7,22 +7,30 @@ body{
 
 .card-header{
     display: flex;
-    justify-content: space-between;
 }
 .star-card{
-    display: inline-block;
+    display: flex;
     margin: 0 10px;
+    width: 300px;
+    justify-content: space-between;
+    padding: 20px;
+    flex-shrink: 0;
 }
 
 .horizontal-scroll-container{
     overflow-x: auto;
     white-space: nowrap;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 50px;
+    margin-bottom: 50px;
     scrollbar-color: black;
 }
 
 .tittle{
     color: red;
     font-style: italic;
+    text-align: left;
+}
+
+.hearth{
+    margin: 10px;
 }
