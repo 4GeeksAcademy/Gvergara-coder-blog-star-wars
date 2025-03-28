@@ -34,3 +34,12 @@ body{
 .hearth{
     margin: 10px;
 }
+
+.hr{
+        height: 1px;
+        background-color: red;
+}
+
+.card-textd{
+    color: rgb(232, 69, 51);
+}

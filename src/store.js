@@ -23,6 +23,11 @@ export const initialStore=()=>{
 
     ],
 
+    starships:
+    [
+
+    ]
+
   }
 }
 
@@ -52,6 +57,14 @@ export default function storeReducer(store, action = {}) {
             ... store,
             planets: planetsList
           };
+
+          case "setStarships":
+            const starshipsList = action.payload
+
+            return{
+              ...store,
+              starships: starshipsList
+            };
 
     default:
       throw Error('Unknown action.');
