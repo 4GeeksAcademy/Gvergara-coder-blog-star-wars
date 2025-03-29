@@ -3,12 +3,21 @@ import { useNavigate } from 'react-router-dom'
 import useGlobalReducer from '../hooks/useGlobalReducer'
 
 const CardStarships = (props) => {
-    const { store, dispatch} = useGlobalReducer()
+    const { store, dispatch } = useGlobalReducer()
     const navigate = useNavigate()
-    const[hearthActi, setHearthActi] = useState(false)
-    const hearthClick = () => {
-        setHearthActi(!hearthActi)
+    const heandleFavorite = () => {
+        if (isFavorite === true) {
+            const action = { type: "removeFavorite", payload: props.sp.name }
+            dispatch(action)
+        }
+        else {
+            const action = { type: "addFavorite", payload: props.sp.name }
+            dispatch(action)
+        }
     }
+
+    const isFavorite = store.favorites.includes(props.sp.name)
+    console.log(isFavorite)
     return (
         <div>
             <div className="card star-card">
@@ -21,12 +30,12 @@ const CardStarships = (props) => {
                 </div>
                 <div className="card-body">
                     <button type="button" className="btn btn-outline-success"
-                    onClick={() => navigate(`/starship/${props.sp.uid}`)}
+                        onClick={() => navigate(`/starship/${props.sp.uid}`)}
                     >Learn more!</button>
-                    <button type="button" 
-                    className="btn btn-outline-warning hearth"
-                    onClick={hearthClick}
-                    ><i className={hearthActi ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i></button>
+                    <button type="button"
+                        className="btn btn-outline-warning hearth"
+                        onClick={heandleFavorite}
+                    ><i className={isFavorite ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i></button>
                 </div>
             </div>
         </div>

@@ -6,10 +6,19 @@ import useGlobalReducer from '../hooks/useGlobalReducer'
 export const CardPlanets = (props) => {
     const { store, dispatch } = useGlobalReducer()
     const navigate = useNavigate()
-    const [hearthActi, setHearthActi] = useState(false)
-    const hearthClick = () => {
-        setHearthActi(!hearthActi)
+    const heandleFavorite = () => {
+        if (isFavorite === true) {
+            const action = { type: "removeFavorite", payload: props.pl.name }
+            dispatch(action)
+        }
+        else {
+            const action = { type: "addFavorite", payload: props.pl.name }
+            dispatch(action)
+        }
     }
+
+    const isFavorite = store.favorites.includes(props.pl.name)
+    console.log(isFavorite)
     return (
         <div>
             <div className="card star-card">
@@ -25,8 +34,8 @@ export const CardPlanets = (props) => {
                     >Learn more!</button>
                     <button type="button"
                         className="btn btn-outline-warning hearth"
-                        onClick={hearthClick}
-                    ><i className={hearthActi ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i></button>
+                        onClick={heandleFavorite}
+                    ><i className={isFavorite? "fa-solid fa-heart" : "fa-regular fa-heart"}></i></button>
                 </div>
             </div>
         </div>

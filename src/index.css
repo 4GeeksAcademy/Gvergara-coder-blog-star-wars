@@ -43,3 +43,8 @@ body{
 .card-textd{
     color: rgb(232, 69, 51);
 }
+
+.boton{
+    display: flex;
+    justify-content: space-between;
+}

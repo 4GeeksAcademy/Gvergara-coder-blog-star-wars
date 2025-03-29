@@ -18,7 +18,6 @@ function CardCharacter(props) {
     }
 
     const isFavorite = store.favorites.includes(props.ch.name)
-
         console.log(isFavorite)
         
 
