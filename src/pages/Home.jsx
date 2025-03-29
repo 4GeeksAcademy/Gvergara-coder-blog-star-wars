@@ -46,9 +46,15 @@ export const Home = () => {
 		})
 		.then((data)=>{
 			console.log(data)
-			const action = {type: "setPlanets", payload: data.results}
+			const newArray = data.results.map(planet => {
+				planet["uid"] = planet.url.split("/")[5]
+				return planet
+			})
+			console.log(newArray)
+
+			const action = {type: "setPlanets", payload: newArray}
 			dispatch(action)
-			
+
 		})
 		.catch((error)=>{
 			console.log(error);
@@ -66,10 +72,14 @@ export const Home = () => {
 			return response.json()
 		})
 		.then((data)=>{
-			console.log(data)
-			const action = {type: "setStarships", payload: data.results}
+			const newArray = data.results.map(starship => {
+				starship["uid"] = starship.url.split("/")[5]
+				return starship
+			})
+			console.log(newArray)
+
+			const action = {type: "setStarships", payload: newArray}
 			dispatch(action)
-			
 		})
 		.catch((error)=>{
 			console.log(error)

@@ -1,6 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import useGlobalReducer from '../hooks/useGlobalReducer'
 
 const CardStarships = (props) => {
+    const { store, dispatch} = useGlobalReducer()
+    const navigate = useNavigate()
+    const[hearthActi, setHearthActi] = useState(false)
+    const hearthClick = () => {
+        setHearthActi(!hearthActi)
+    }
     return (
         <div>
             <div className="card star-card">
@@ -12,8 +20,13 @@ const CardStarships = (props) => {
                     <p className="card-text">Passengers: {props.sp.passengers}</p>
                 </div>
                 <div className="card-body">
-                    <button type="button" className="btn btn-outline-success">Learn more!</button>
-                    <button type="button" className="btn btn-outline-warning hearth"><i className="fa-regular fa-heart"></i></button>
+                    <button type="button" className="btn btn-outline-success"
+                    onClick={() => navigate(`/starship/${props.sp.uid}`)}
+                    >Learn more!</button>
+                    <button type="button" 
+                    className="btn btn-outline-warning hearth"
+                    onClick={hearthClick}
+                    ><i className={hearthActi ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i></button>
                 </div>
             </div>
         </div>
